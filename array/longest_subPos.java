@@ -1,37 +1,42 @@
+// Online Java Compiler
+// Use this editor to write, compile and run your Java code online
 import java.util.*;
-
-public class Solution
-{
-    public static void main(String args[])
-    {
-        int a[]={1,2,3,1,1,1,1,3,4};
-        int k=6;
-        int p=longestSub(a,k);
-        System.out.println(p);
+class Main {
+    
+    public static void main(String[] args) {
+        int[] a = {1, 2, 3, 1, 1, 1, 1};
+        long k = 3;
+        System.out.println("Longest subarray length is: " + Solution(a, k));
     }
     
-    
-    public static int longestSub(int a[],int k)
+    public static int Solution(int a[],long k)
     {
-        int right=0;
-        int left=0;
+        Map<Long,Integer> prefix=new HashMap<>();
+        int len=a.length;
         long sum=0;
+   
         int max=0;
-        while(right<a.length)
+        for(int i=0;i<len;++i)
         {
-            sum=sum+a[right];
-            while( left<=right && sum>k)
-            {
-                sum=sum-a[left];
-                ++left;
-            }
+            sum=sum+a[i];
+           // a.put(sum,i);
             if(sum==k)
+            max=Math.max(max,i+1);
+            
+            long rem=sum-k;
+            if(prefix.containsKey(rem))
             {
-                max=Math.max(max,right-left+1);
+                max=Math.max(max,(i-prefix.get(rem)));
+                
             }
-           ++right;
-            //System.out.println(max);
+            else
+            {
+                prefix.put(sum,i);
+            }
+            
         }
         return max;
+        
+        
     }
 }

@@ -29,7 +29,7 @@ class Main {
                 max=Math.max(max,(i-prefix.get(rem)));
                 
             }
-            else
+            if(!prefix.containsKey(sum))
             {
                 prefix.put(sum,i);
             }
